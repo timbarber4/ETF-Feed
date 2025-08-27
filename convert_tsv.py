@@ -1,15 +1,15 @@
 import os
-import pandas as pd
 from datetime import datetime
 
 def convert_tsv_to_html(tsv_file):
     try:
-        df = pd.read_csv(tsv_file, sep='\t')
-        basename = os.path.splitext(tsv_file)[0]
+        basename = tsv_file.replace('.tsv', '')
         html_file = f"{basename}.html"
         
-        html_content = f"""
-<!DOCTYPE html>
+        with open(tsv_file, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+        
+        html_content = f'''<!DOCTYPE html>
 <html>
 <head>
     <title>{basename}</title>
@@ -24,12 +24,27 @@ def convert_tsv_to_html(tsv_file):
 <body>
     <h1>Trading Data: {basename}</h1>
     <p>Last Updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
-    {df.to_html(index=False, escape=False)}
-</body>
-</html>"""
+    <table>
+'''
+        
+        for i, line in enumerate(lines):
+            cells = line.strip().split('\t')
+            if i == 0:  # Header row
+                html_content += '<tr>'
+                for cell in cells:
+                    html_content += f'<th>{cell}</th>'
+                html_content += '</tr>'
+            else:  # Data rows
+                html_content += '<tr>'
+                for cell in cells:
+                    html_content += f'<td>{cell}</td>'
+                html_content += '</tr>'
+        
+        html_content += '</table></body></html>'
         
         with open(html_file, 'w', encoding='utf-8') as f:
             f.write(html_content)
+        
         print(f"Converted {tsv_file} to {html_file}")
         
     except Exception as e:
