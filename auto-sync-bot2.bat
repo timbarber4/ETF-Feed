@@ -4,15 +4,18 @@ color 0A
 
 echo ========================================
 echo  Live Data Feed - Auto GitHub Upload
-echo  Checking every 1 minute
+echo  Checking every 30 seconds
 echo ========================================
 echo.
 
 REM Change this path to your repository folder
-cd /d "C:\Users\timot\OneDrive\Documents\GitHub\ETF-Feed
+cd /d "C:\Users\timot\OneDrive\Documents\GitHub\ETF-Feed"
 
 :LOOP
 echo [%time%] Checking for file changes...
+
+REM Convert TSV files to HTML
+python convert_tsv.py
 
 REM Add all files to git
 git add .
@@ -24,7 +27,7 @@ if %ERRORLEVEL% NEQ 0 (
     git commit -m "Auto-update data file - %date% %time%"
     git push
     echo [%time%] ✓ Live data updated on GitHub!
-    echo [%time%] ✓ Available at: https://raw.githubusercontent.com/timbarber4/Live-data-feed/main/Test%%20Spreader.txt
+    echo [%time%] ✓ Available at: https://timbarber4.github.io/ETF-Feed/
 ) else (
     echo [%time%] No changes detected.
 )
