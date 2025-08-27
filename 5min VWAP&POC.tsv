@@ -1,4 +1,7 @@
- [ID0] SPY[M]  5 Min  #3			Formula Source Sheet #3.  Enter and modify formulas for this sheet on Sheet3																							[ID1] Volume Weighted Average Price
+9:41
+
+ 
+[ID0] SPY[M]  5 Min  #3			Formula Source Sheet #3.  Enter and modify formulas for this sheet on Sheet3																							[ID1] Volume Weighted Average Price
 Date Time	[ID0.SG1] Open	[ID0.SG2] High	[ID0.SG3] Low	[ID0.SG4] Last	[ID0.SG5] Volume	[ID0.SG6] # of Trades				K	L	M	N	O	P	Q	R	S	T	U	V	W	X	Y	Z	[ID1.SG1] VWAP	[ID1.SG2] Top Band 1	[ID1.SG3] Bottom Band 1	[ID1.SG4] Top Band 2	[ID1.SG5] Bottom Band 2	[ID1.SG6] Top Band 3	[ID1.SG7] Bottom Band 3	[ID1.SG8] Top Band 4	[ID1.SG9] Bottom Band 4
 2025-08-26  20:00:00	645.16	645.16	645.16	645.16	1	1																				645.3383178710938	645.4346923828125	645.241943359375	645.5311279296875	645.1455078125	645.6275024414062	645.0491333007812	645.723876953125	644.9527587890625
 2025-08-26  19:55:00	645.78	645.80	645.71	645.71	15043	45																				645.3383178710938	645.4346923828125	645.241943359375	645.5311279296875	645.1455078125	645.6275024414062	645.0491333007812	645.723876953125	644.9527587890625
