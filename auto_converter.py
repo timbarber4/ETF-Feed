@@ -59,6 +59,9 @@ def convert_tsv_to_clean_html(tsv_file):
             for row in all_rows:
                 if col_index < len(row):
                     cell_content = row[col_index].strip()
+                    # Skip formula source sheet references
+                    if 'formula source sheet' in cell_content.lower() and 'enter and modify' in cell_content.lower():
+                        continue
                     # Keep column if it has meaningful content
                     if cell_content and not (len(cell_content) == 1 and cell_content.isalpha() and cell_content.isupper()):
                         # Also skip completely empty cells
@@ -77,7 +80,12 @@ def convert_tsv_to_clean_html(tsv_file):
             filtered_row = []
             for col_index in columns_to_keep:
                 if col_index < len(row):
-                    filtered_row.append(html.escape(row[col_index]))
+                    cell_content = row[col_index].strip()
+                    # Remove formula source sheet text but keep everything else
+                    if 'formula source sheet' in cell_content.lower() and 'enter and modify' in cell_content.lower():
+                        filtered_row.append('')  # Replace with empty cell
+                    else:
+                        filtered_row.append(html.escape(cell_content))
                 else:
                     filtered_row.append('')
             filtered_rows.append(filtered_row)
