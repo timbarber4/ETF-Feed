@@ -1,6 +1,6 @@
  [ID0] SPY[M]  5 Min  #7			Formula Source Sheet #2.  Enter and modify formulas for this sheet on Sheet2																							[ID2] BidVolume vs. AskVolume
 Date Time	[ID0.SG1] Open	[ID0.SG2] High	[ID0.SG3] Low	[ID0.SG4] Last	[ID0.SG5] Volume	[ID0.SG6] # of Trades				K	L	M	N	O	P	Q	R	S	T	U	V	W	X	Y	Z	[ID2.SG1] Ask Volume	[ID2.SG2] Bid Volume	[ID2.SG4] Zero Line	[ID2.SG5] Difference
-2025-08-29  12:25:00	644.63	644.66	644.10	644.10	132023	881																				55464	-76559	0	-21095
+2025-08-29  12:25:00	644.63	644.66	644.09	644.16	139178	944																				61119	-78059	0	-16940
 2025-08-29  12:20:00	644.53	644.68	644.48	644.63	246818	1543																				138774	-108044	0	30730
 2025-08-29  12:15:00	644.54	644.76	644.39	644.53	282948	2093																				132550	-150398	0	-17848
 2025-08-29  12:10:00	644.34	644.68	644.26	644.54	377494	2500																				209413	-168081	0	41332
