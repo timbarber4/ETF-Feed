@@ -7,8 +7,8 @@ echo    GITHUB FILE SENDER STARTED
 echo ================================
 echo.
 
-REM Change to your repository directory
-cd /d "%~dp0"
+REM Change to your ETF-Feed repository directory
+cd /d "C:\Users\timot\OneDrive\Documents\GitHub\ETF-Feed"
 echo Current directory: %CD%
 echo.
 
@@ -18,7 +18,7 @@ git config credential.helper manager 2>nul
 :MAIN_LOOP
 echo [%DATE% %TIME%] Checking for file changes...
 
-REM Stage all changes
+REM Stage all changes in ETF-Feed folder
 git add . 2>nul
 
 REM Check if there are staged changes
