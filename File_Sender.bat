@@ -40,9 +40,9 @@ if %ERRORLEVEL% EQU 0 (
     REM Push to GitHub
     git push origin main 2>error.log
     if %ERRORLEVEL% EQU 0 (
-        echo ✓ Successfully pushed to GitHub!
+        echo Success! Pushed to GitHub!
     ) else (
-        echo ✗ Push failed. Check error.log for details.
+        echo Push failed. Check error.log for details.
         type error.log
     )
 )
