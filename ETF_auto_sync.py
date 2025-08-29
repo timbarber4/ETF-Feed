@@ -29,30 +29,44 @@ def main():
             timestamp = datetime.now().strftime("%H:%M:%S")
             print(f"[{timestamp}] Checking for changes...")
             
-            # Add all files
+            # Add all files first (including any new changes)
             subprocess.run(["git", "add", "."], capture_output=True)
             
             # Check if there are staged changes
-            result = subprocess.run(["git", "diff", "--staged", "--quiet"], capture_output=True)
+            status_result = subprocess.run(["git", "status", "--porcelain"], 
+                                         capture_output=True, text=True)
+            staged_result = subprocess.run(["git", "diff", "--staged", "--name-only"], 
+                                         capture_output=True, text=True)
             
-            if result.returncode != 0:  # Changes detected
-                print("  Changes detected - committing and pushing...")
+            if staged_result.stdout.strip():  # There are staged changes ready to commit
+                staged_files = staged_result.stdout.strip().split('\n')
+                print(f"  Changes detected in {len(staged_files)} files")
+                print("  Files:", ', '.join(staged_files[:5]) + ('...' if len(staged_files) > 5 else ''))
                 
                 # Commit changes
                 commit_msg = f"Auto-update {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-                subprocess.run(["git", "commit", "-m", commit_msg], capture_output=True)
+                commit_result = subprocess.run(["git", "commit", "-m", commit_msg], 
+                                             capture_output=True, text=True)
                 
-                # Push to GitHub
-                push_result = subprocess.run(["git", "push", "origin", "main"], 
-                                           capture_output=True, text=True)
-                
-                if push_result.returncode == 0:
-                    print("  ✓ Successfully synced to GitHub!")
-                    print("  ✓ Files are live online!")
+                if commit_result.returncode == 0:
+                    print("  ✓ Committed successfully")
+                    
+                    # Push to GitHub
+                    print("  → Pushing to GitHub...")
+                    push_result = subprocess.run(["git", "push", "origin", "main"], 
+                                               capture_output=True, text=True)
+                    
+                    if push_result.returncode == 0:
+                        print("  ✓ Successfully pushed to GitHub!")
+                        print("  ✓ Files are live online!")
+                    else:
+                        print("  ✗ Push failed:")
+                        if push_result.stderr:
+                            print(f"    {push_result.stderr.strip()}")
                 else:
-                    print("  → Push completed - files committed locally")
-                    if push_result.stderr:
-                        print(f"    Error: {push_result.stderr.strip()}")
+                    print("  ✗ Commit failed:")
+                    if commit_result.stderr:
+                        print(f"    {commit_result.stderr.strip()}")
             else:
                 print("  No changes found")
             
