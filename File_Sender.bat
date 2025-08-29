@@ -1,9 +1,9 @@
 @echo off
-title Auto GitHub Sync - Live Data Feed
+title GitHub File Sender - ETF Data
 color 0A
 
 echo ================================
-echo    AUTO GITHUB SYNC STARTED
+echo    GITHUB FILE SENDER STARTED
 echo ================================
 echo.
 
@@ -21,6 +21,9 @@ if %ERRORLEVEL% NEQ 0 (
     exit /b 1
 )
 
+REM Use GitHub Desktop's credentials by setting credential helper
+git config credential.helper manager-core
+
 :MAIN_LOOP
 echo [%DATE% %TIME%] Checking for file changes...
 
@@ -35,14 +38,14 @@ if %ERRORLEVEL% EQU 0 (
     echo Changes detected! Committing and pushing...
     
     REM Commit with timestamp
-    git commit -m "Auto-update: %DATE% %TIME%"
+    git commit -m "Auto-update ETF data: %DATE% %TIME%"
     
-    REM Push to GitHub
-    git push origin main 2>error.log
+    REM Push to GitHub using GitHub Desktop's saved credentials
+    git push 2>error.log
     if %ERRORLEVEL% EQU 0 (
-        echo Success! Pushed to GitHub!
+        echo Success! Files sent to GitHub!
     ) else (
-        echo Push failed. Check error.log for details.
+        echo Send failed. Check error.log for details.
         type error.log
     )
 )
